@@ -139,7 +139,7 @@
               android:layout_margin="16dp"
               android:adjustViewBounds="true"
               android:background="@color/colorBlanco"
-              android:src="@drawable/galeria2"/>
+              android:src="@drawable/galeria3"/>
       </LinearLayout>
 
 
