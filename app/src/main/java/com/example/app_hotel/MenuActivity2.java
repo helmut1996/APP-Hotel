@@ -2,8 +2,11 @@ package com.example.app_hotel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.Button;
 
@@ -44,7 +47,7 @@ public class MenuActivity2 extends AppCompatActivity implements View.OnClickList
              googleMap();
              break;
             case  R.id.btnReservas:
-                Reservas();
+                Reservas("88541239");
             case R.id.btnGaleria:
                 startActivity( new Intent(getApplicationContext(),GaleriaActivity5.class));
                 break;
@@ -55,9 +58,24 @@ public class MenuActivity2 extends AppCompatActivity implements View.OnClickList
     }
 
     public void googleMap(){
+    double latitude = 11.808228;
+    double longitude = -86.528797;
 
+    String label = "Hotel Colins";
+
+    String uriBegin="geo:" +latitude+ ","+ longitude;
+    String query =latitude+ "," + longitude + "("+ label + ")";
+    String encodedQuery = Uri.encode(query);
+    String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+        Uri uri=Uri.parse(uriString);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW,uri);
+        startActivity(mapIntent);
     }
-    public void Reservas(){
-
+    public void Reservas(String telefono){
+        Intent _intencion = new Intent("android.intent.action.MAIN");
+        _intencion.setComponent(new ComponentName("com.whatsapp","com.whatsapp.Conversation"));
+        _intencion.putExtra(Intent.EXTRA_TEXT,"Hola Una Consulta");
+        _intencion.putExtra("jid", PhoneNumberUtils.stripSeparators("505" + telefono)+"@s.whatsapp.net");
+        startActivity(_intencion);
     }
 }
